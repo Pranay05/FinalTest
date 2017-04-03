@@ -1,0 +1,18 @@
+development:
+  cloud_name: defdxzhhv
+  api_key: '383511518193315'
+  api_secret: N_zkkIkfvw0jPfY3DNovEMwuyew
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: defdxzhhv
+  api_key: '383511518193315'
+  api_secret: N_zkkIkfvw0jPfY3DNovEMwuyew
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: defdxzhhv
+  api_key: '383511518193315'
+  api_secret: N_zkkIkfvw0jPfY3DNovEMwuyew
+  enhance_image_tag: true
+  static_image_support: false

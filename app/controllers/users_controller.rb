@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
 
 
+	def index
+		
+	end
+
+
 	def home
 
 		user = User.find(params[:request][:user_id])

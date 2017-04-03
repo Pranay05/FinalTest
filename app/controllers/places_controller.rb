@@ -1,21 +1,19 @@
 class PlacesController < ApplicationController
 
  def create
-  place = Place.new(place_params)
-  return render json: {response: 500,msg: "user not found"} if place.blank?
+ 
+  user = User.find(params[:place][:user_id])
+  return render json: {response: 500,msg: "user not found"} if user.blank?
 
-  byebug
-if place.save!
+    place = user.places.create(place_params)
+       
+      if place.save!
 
-	byebug
-		#session[:user_id] = @user.id
 		render json: {place_id: place.id, status: 200 , message: "added succesfully"}
 	else
 		render json:{ staus: 400, message: " could not add" }
 	end
   
-
-
  end
 
 def show
@@ -36,7 +34,7 @@ end
  private
  
  def place_params
- 	params.require(:place).permit(:user_id,:liked_place,:latitude,:longitude)
+ 	params.require(:place).permit(:user_id,:liked_place)
 end
 
 end
