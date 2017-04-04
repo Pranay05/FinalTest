@@ -16,14 +16,17 @@ class UsersController < ApplicationController
         end
        if user.role == 'queen'
           other = User.find_by(role: 'girl') 
+          other.to_json
       end
 
       if user.role == 'boy'
       	other = User.find_by(role: 'king')
+      	other.to_json
       end
 
       if user.role == 'girl'
          other = User.find_by(role: 'boy')
+         other.to_json
       end
 
       render json: {staus: 200, message: "home page" , home: other, role: user.role}
@@ -59,6 +62,9 @@ end
 
 def show
 	@user = User.find(params[:request][:user_id])
+
+ return render json: {response: 500,msg: "user not found"} if @user.blank?
+
     render json: {response: 200, user: @user}
 
 end

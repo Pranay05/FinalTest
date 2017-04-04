@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
 
 
-root to: "user#index"
+#root to: "user#index"
 
 #place mdel routing
 post 'add_place', to: 'places#create'
@@ -30,6 +30,7 @@ post 'home' , to: 'users#home'
 post 'signin', to: 'sessions#create'
 post 'edit_profile', to: 'users#update'
 post 'myprofile', to: 'users#show'
+post 'signup', to: 'users#create'
 resources :users
 
 

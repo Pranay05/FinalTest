@@ -2,11 +2,11 @@ class PlacesController < ApplicationController
 
  def create
  
-  user = User.find(params[:place][:user_id])
+  user = User.where(id: params[:place][:user_id]).first
   return render json: {response: 500,msg: "user not found"} if user.blank?
 
-    place = user.places.create(place_params)
-       
+    place = user.places.new(place_params)
+
       if place.save!
 
 		render json: {place_id: place.id, status: 200 , message: "added succesfully"}
@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
  end
 
 def show
- user = Place.find(params[:place][:user_id])
+ user = Place.where(id: params[:place][:user_id]).first
   return render json: {response: 500,msg: "user not found"} if user.blank?
 
   place = Place.where(user_id: user.id)
