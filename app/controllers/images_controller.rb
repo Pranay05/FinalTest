@@ -4,9 +4,9 @@ class ImagesController < ApplicationController
 def create
  
   user = User.find(params[:image][:user_id])
-  return render json: {response: 500,msg: "user not found"} if user.blank?
+  return render json: {staus: 500,message: "user not found"} if user.blank?
 
-  return render json: {response: 500,msg: "cannot upload more than 4 image"} if user.images.count == 5
+  return render json: {staus: 500,message: "cannot upload more than 4 image"} if user.images.count == 5
 
      image = user.images.build(image_params)
 
@@ -19,22 +19,26 @@ def create
   
  end
 
+
+
 def show
  user = Image.find(params[:image][:user_id])
-  return render json: {response: 500,msg: "user not found"} if user.blank?
+ #to store each image url
+  image_arr =[]
+  return render json: {staus: 500,msg: "user not found"} if user.blank?
 
   show_user = User.find(params[:image][:user_id])
-  
-   if user_role = show_user.role == 'queen'
-   image = Image.where(user_id: user.id).last
+   #case to only provide last uploaded image of queen to front end
+   if show_user.role.casecmp('queen').zero?
+   user_image = Image.where(user_id: user.id).last
+   image_arr = user_image.image.url
    else
-    image = Image.where(user_id: user.id)
-   end
-
-   image.to_json
-
-
- render json: { status: 200 , image: image }
+    user_image = Image.where(user_id: user.id)
+    user_image.each do |img|
+    image_arr << img.image.url
+     end
+  end
+render json: { status: 200 , image: image_arr}
 
 end
 
@@ -51,6 +55,3 @@ end
 
 
 
-
-
-end

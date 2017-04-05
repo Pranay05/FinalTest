@@ -18,7 +18,7 @@ class PlacesController < ApplicationController
 
 def show
  user = Place.where(id: params[:place][:user_id]).first
-  return render json: {response: 500,msg: "user not found"} if user.blank?
+  return render json: {staus: 500,message: "user not found"} if user.blank?
 
   place = Place.where(user_id: user.id)
   place.to_json

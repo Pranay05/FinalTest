@@ -6,32 +6,45 @@ class UsersController < ApplicationController
 	end
 
 
-	def home
+	
 
-		user = User.find(params[:request][:user_id])
+ def home
 
-		if user.role == 'king'
-			other =  User.where.not(role: "king")
-			other.to_json
+    user = User.find(params[:request][:user_id])
+
+
+    if User.exists? id: params[:request][:user_id]
+
+    	if user.role.casecmp('king').zero?
+      	other =  User.where.not(role: "King")
         end
-       if user.role == 'queen'
-          other = User.find_by(role: 'girl') 
-          other.to_json
-      end
 
-      if user.role == 'boy'
-      	other = User.find_by(role: 'king')
-      	other.to_json
-      end
+       	if user.role.casecmp('queen').zero?
+       		role = 'Girl'
+          other = User.where('lower(role)=?',role.downcase)
 
-      if user.role == 'girl'
-         other = User.find_by(role: 'boy')
-         other.to_json
-      end
+      	end
+
+     	if user.role.casecmp('boy').zero?
+     		role = 'king'
+      	other = User.where('lower(role)=?',role.downcase)
+     	end
+
+     	if user.role.casecmp('girl').zero?
+     		role = 'Boy'
+         other =User.where('lower(role)=?',role.downcase)
+        end
 
       render json: {staus: 200, message: "home page" , home: other, role: user.role}
 
+  else
+  	render json: {response: 500,msg: "user not found"}
+  end
+
 end
+  
+
+   
 
 
 
@@ -52,10 +65,10 @@ def create
 end
 
 def show_other_profile
- user = User.find(params[:request][:user_id])
+ user = User.find(params[:otheruser][:user_id])
  return render json: {response: 500,msg: "user not found"} if user.blank?
 
- render json:{ user: user, staus: 400, message: " could not find user" }
+ render json:{message: "found user" , user: user, staus: 200}
 
 
 end
