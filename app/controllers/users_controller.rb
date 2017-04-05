@@ -125,7 +125,7 @@ params.require(:user).permit(:email,:password,:password_confirmation,:role)
 end
 
 def update_params
-params.require(:user).permit(:email,:first_name,:last_name,:dob,:country,:city,:state,:zip,:kids,:kingdom_today,:id)
+params.require(:user).permit(:email,:first_name,:last_name,:dob,:country,:city,:street,:state,:zip,:kids,:kingdom_today,:id)
 
 end
 

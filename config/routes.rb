@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -18,7 +20,8 @@ post 'add_image', to: 'images#create'
 post 'show_image', to: 'images#show'
 
 
-
+#password reset 
+resources :password_resets 
 
 
 
