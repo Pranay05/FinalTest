@@ -31,11 +31,11 @@ def show
    #case to only provide last uploaded image of queen to front end
    if show_user.role.casecmp('queen').zero?
    user_image = Image.where(user_id: user.id).last
-   image_arr = user_image.image.url
+   image_arr = user_image.name.url
    else
     user_image = Image.where(user_id: user.id)
     user_image.each do |img|
-    image_arr << img.image.url
+    image_arr << img.name.url
      end
   end
 render json: { status: 200 , image: image_arr}
