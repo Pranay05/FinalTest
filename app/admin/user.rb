@@ -1,4 +1,9 @@
 ActiveAdmin.register User do
+
+  permit_params :first_name,:last_name,:email,:role,:dob,:country ,:state ,	:city,:zip,:street,:kids
+
+
+
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #

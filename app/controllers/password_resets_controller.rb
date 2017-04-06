@@ -7,12 +7,15 @@ class PasswordResetsController < ApplicationController
 def create
 
    user = User.find_by(email: params[:request][:email])
-   user.send_password_reset if user
-   render json:{ staus: 200, message: "email send with password reset instrauction" }
-
+  if user.present?
+   user.send_password_reset 
+   render json:{ status: 200, message: "email send with password reset instruction" }
+else 
+	render json: {status: 500, message: "email not found"}
 end
 
 
 
 
+end
 end
